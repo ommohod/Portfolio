@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Build Smart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      background: url('back.jpeg') no-repeat center center/cover;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 6px;
+    }
+
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .remember-forgot a {
+      color: #ff7f50;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .remember-forgot a:hover {
+      color: #ff4500;
+    }
+
+    button[type="submit"] {
+      background-color: #ff7f50;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 15px;
+      transition: background 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #ff4500;
+    }
+
+    .social-btn {
+      display: block;
+      text-align: center;
+      padding: 10px;
+      margin: 6px 0;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .google {
+      background: #db4437;
+      color: white;
+    }
+
+    .facebook {
+      background: #3b5998;
+      color: white;
+    }
+
+    .social-btn:hover {
+      opacity: 0.9;
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    .links a {
+      color: #ff7f50;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .links a:hover {
+      color: #ff4500;
+    }
+
+    .radio-group {
+      display: flex;
+      justify-content: space-around;
+      margin: 12px 0;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .radio-label input {
+      display: none;
+    }
+
+    .custom-radio {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #ff7f50;
+      border-radius: 50%;
+      display: inline-block;
+      position: relative;
+      margin-right: 8px;
+    }
+
+    .radio-label input:checked + .custom-radio {
+      background-color: #ff7f50;
+      border: 2px solid #ff4500;
+    }
+
+    .radio-label input:checked + .custom-radio::after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+
+  <script>
+    function redirectToSignup(event) {
+      event.preventDefault();
+      window.location.href = "Sign Up.html";
+    }
+
+    function googleLogin() {
+      window.location.href =
+        "https://accounts.google.com/o/oauth2/auth?client_id=337917313584-emfbdjvs0rq1kpecucope0k92jrbmgen.apps.googleusercontent.com&redirect_uri=http://localhost:main1.html&response_type=token&scope=email";
+    }
+
+    function facebookLogin() {
+      window.location.href =
+        "https://www.facebook.com/v12.0/dialog/oauth?client_id=1557987418240463&redirect_uri=http://localhost:8080/dashboard.html&response_type=token&scope=email";
+    }
+
+    function redirectToForgotPassword(event) {
+      event.preventDefault();
+      window.location.href = "forgot-password.html";
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="form-box">
+      <h2>Welcome Back!</h2>
+
+      <form action="login.php" method="post">
+        <label>Email</label>
+        <input type="email" name="email" required />
+
+        <label>Password</label>
+        <input type="password" name="password" required />
+
+        <div class="remember-forgot">
+          <label><input type="checkbox" /> Remember Me</label>
+          <a href="#" onclick="redirectToForgotPassword(event)">Forgot Password?</a>
+        </div>
+
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="login_as" value="user" required />
+            <span class="custom-radio"></span> User
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="login_as" value="admin" required />
+            <span class="custom-radio"></span> Admin
+          </label>
+        </div>
+
+        <button type="submit">Login</button>
+
+        <button class="social-btn google" type="button" onclick="googleLogin()">Login with Google</button>
+        <button class="social-btn facebook" type="button" onclick="facebookLogin()">Login with Facebook</button>
+
+        <div class="links">
+          <p>Don't have an account? <a href="#" onclick="redirectToSignup(event)">Sign Up</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

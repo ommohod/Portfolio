@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup - Build Smart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: url('back.jpeg') no-repeat center center/cover;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-box h2 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #ff7f50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #ff4500;
+    }
+
+    .social-btn {
+      display: block;
+      text-align: center;
+      padding: 10px;
+      margin: 6px 0;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .google {
+      background: #db4437;
+      color: white;
+    }
+
+    .facebook {
+      background: #3b5998;
+      color: white;
+    }
+
+    .social-btn:hover {
+      opacity: 0.9;
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 13px;
+    }
+
+    .links a {
+      color: #ff7f50;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .links a:hover {
+      color: #ff4500;
+    }
+
+    .radio-group {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      background: #f1f1f1;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .radio-label input {
+      display: none;
+    }
+
+    .custom-radio {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #ff7f50;
+      border-radius: 50%;
+      margin-right: 8px;
+      position: relative;
+    }
+
+    .radio-label input:checked + .custom-radio {
+      background-color: #ff7f50;
+      border-color: #ff4500;
+    }
+
+    .radio-label input:checked + .custom-radio::after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+
+  <script>
+    function redirectToLogin(event) {
+      event.preventDefault();
+      window.location.href = "login.html";
+    }
+
+    function googleLogin() {
+      window.location.href = "https://accounts.google.com/o/oauth2/auth?client_id=337917313584-emfbdjvs0rq1kpecucope0k92jrbmgen.apps.googleusercontent.com&redirect_uri=http://localhost:8080/dashboard.html&response_type=token&scope=email";
+    }
+
+    function facebookLogin() {
+      window.location.href = "https://www.facebook.com/v12.0/dialog/oauth?client_id=1557987418240463&redirect_uri=http://localhost:8080/dashboard.html&response_type=token&scope=email";
+    }
+  </script>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="form-box">
+      <h2>Create an Account</h2>
+      <form action="signup.php" method="post">
+        <input type="text" name="username" placeholder="Enter Your Username" required>
+        <input type="email" name="email" placeholder="Enter Your Email" required>
+        <input type="text" name="phone" placeholder="Enter Your Phone No." required>
+        <input type="password" name="password" placeholder="Create Password" required>
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="login_as" value="user" required>
+            <span class="custom-radio"></span> User
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="login_as" value="admin" required>
+            <span class="custom-radio"></span> Admin
+          </label>
+        </div>
+
+        <button type="submit">Sign Up</button>
+
+        <hr>
+
+        <button type="button" class="social-btn google" onclick="googleLogin()">Sign Up with Google</button>
+        <button type="button" class="social-btn facebook" onclick="facebookLogin()">Sign Up with Facebook</button>
+
+        <div class="links">
+          Already have an account? <a href="#" onclick="redirectToLogin(event)">Login</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

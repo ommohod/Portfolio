@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Colorful CRUD with Objects in JavaScript</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #080808;
+      padding: 180px;
+      color: #333;
+    }
+
+.form-container {
+  max-width: 300px;
+  margin: 40px auto;
+  padding: 25px 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  background: #ffffff;
+  box-shadow: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-container h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.form-container > div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1px;
+}
+
+.form-container label {
+  font-size: 1rem;
+  margin-bottom: 1px;
+  font-weight: 600;
+}
+
+.form-container input {
+  padding: 9px;
+  border-radius: 7px;
+  border: 1.5px solid #ccc;
+  font-size: 1rem;
+}
+
+.form-container button {
+  margin-top: 2px;
+  padding: 10px 18px;
+  border-radius: 25px;
+  border: none;
+  font-weight: bold;
+  color: #fff;
+  background-color: #27ae60;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.form-container .update-btn {
+  background-color: #2980b9;
+  margin-left: 12px;
+}
+
+.form-container button:hover {
+  opacity: 0.92;
+}
+</style>
+</head>
+<body>
+
+
+ <div class="form-container">
+  <h2>-- Employee Details --</h2><br>
+<div>
+  <label for="id">Employee ID</label><br>
+  <input type="number" id="id" placeholder="ID" />
+</div>
+<div>
+  <label for="name">Employee Name</label><br>
+  <input type="text" id="name" placeholder="Name" />
+  </div>
+  <div>
+  <label for="salary">Employee Salary</label><br>
+  <input type="number" id="salary" placeholder="Salary" />
+</div>
+<div>
+  <label for="role">Employee Role</label><br>
+  <input type="text" id="role" placeholder="Designation" />
+</div>
+
+  <button class="add-btn" onclick="createStudent()">Add Student</button>
+  <button class="update-btn" onclick="updateStudent()">Update Student</button>
+</div>
+
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th><th>Name</th><th>Age</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="studentTable">
+      <!-- Data will appear here -->
+    </tbody>
+  </table>
+
+  <script>
+    let students = [];
+
+    function createStudent() {
+      const id = parseInt(document.getElementById("id").value);
+      const name = document.getElementById("name").value;
+      const age = parseInt(document.getElementById("age").value);
+
+      if (!id || !name || !age) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      if (students.find(s => s.id === id)) {
+        alert("Student with this ID already exists!");
+        return;
+      }
+
+      students.push({ id, name, age });
+      displayStudents();
+      clearInputs();
+    }
+
+    function displayStudents() {
+      const table = document.getElementById("studentTable");
+      table.innerHTML = "";
+
+      students.forEach(student => {
+        table.innerHTML += `
+          <tr>
+            <td>${student.id}</td>
+            <td>${student.name}</td>
+            <td>${student.age}</td>
+            <td>
+              <button class="edit-btn" onclick="editStudent(${student.id})">Edit</button>
+              <button class="delete-btn" onclick="deleteStudent(${student.id})">Delete</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function editStudent(id) {
+      const student = students.find(s => s.id === id);
+      if (student) {
+        document.getElementById("id").value = student.id;
+        document.getElementById("name").value = student.name;
+        document.getElementById("age").value = student.age;
+      }
+    }
+
+    function updateStudent() {
+      const id = parseInt(document.getElementById("id").value);
+      const name = document.getElementById("name").value;
+      const age = parseInt(document.getElementById("age").value);
+
+      const student = students.find(s => s.id === id);
+      if (student) {
+        student.name = name;
+        student.age = age;
+        displayStudents();
+        clearInputs();
+      } else {
+        alert("Student not found for update.");
+      }
+    }
+
+    function deleteStudent(id) {
+      students = students.filter(s => s.id !== id);
+      displayStudents();
+    }
+
+    function clearInputs() {
+      document.getElementById("id").value = "";
+      document.getElementById("name").value = "";
+      document.getElementById("age").value = "";
+    }
+  </script>
+
+</body>
+</html>

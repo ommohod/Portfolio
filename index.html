@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced Colorful Portfolio</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+  <!-- Google Fonts: Montserrat for headings, Open Sans for body -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #1D212B;
+      --accent: #F96D00;
+      --accent-hover: #C75100;
+      --bg: #F8F9FA;
+      --surface: #222831;
+      --text-main: #222831;
+      --text-accent: #F96D00;
+    }
+
+    body {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Open Sans', Arial, sans-serif;
+      line-height: 1.6;
+      /* Anti-aliasing for smooth fonts */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    section {
+      padding: 100px 0;
+      background: linear-gradient(120deg, #565554, #0c0c0c 60%);
+    }
+
+    .navbar {
+      background-color: var(--primary);
+    }
+
+    .navbar-brand {
+      color: var(--accent) !important;
+    }
+
+    .btn-custom, .btn-dark, .btn-outline-light {
+      background-color: var(--accent);
+      color: #fff;
+      border-radius: 30px;
+      box-shadow: 0 4px 16px rgba(249,109,0,0.14);
+      font-weight: 600;
+      transition: background 0.3s, box-shadow 0.3s;
+      border: none;
+    }
+    .btn-custom:hover, .btn-dark:hover, .btn-outline-light:hover {
+      background-color: var(--accent-hover);
+      box-shadow: 0 8px 24px rgba(249,109,0,0.16);
+      color: #fff;
+    }
+
+    .card, .carousel-item .card {
+      border: none;
+      border-radius: 18px;
+      box-shadow: 0 2px 8px rgba(30,40,60,0.09);
+      transition: box-shadow 0.25s, transform 0.25s;
+      background: var(--surface);
+      color: #fff;
+     
+    }
+    .card:hover {
+      box-shadow: 0 8px 32px rgba(30,40,60,0.16);
+      transform: scale(1.02);
+    }
+
+    .skills-icon {
+      font-size: 2rem;
+      color: var(--accent);
+    }
+
+    .badge.bg-warning.text-dark {
+      background-color: var(--accent) !important;
+      color: #fff !important;
+      margin: 0.12rem 0.15rem;
+      font-size: 1rem;
+      padding: 0.5em 1em;
+    }
+
+    footer {
+      background-color: var(--primary);
+      color: white;
+      padding: 20px 0;
+    }
+
+    /* Carousel controls improved */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 15px;
+      border-radius: 50%;
+    }
+
+    .carousel-item > .row {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      
+    }
+
+    .hero, .about, .project, .contact, .resume {
+      background: linear-gradient(120deg, #565554, #0c0c0c 60%);
+    }
+    .bg-light {
+      background: linear-gradient(120deg, #363532, #1D212B 85%);
+    }
+
+    /* Enhanced Whitespace */
+    .card, .carousel-item .card {
+      padding: 2rem 2rem;
+      margin-bottom: 2rem;
+     
+    }
+    form .form-control {
+      margin-bottom: 2rem;
+    }
+    .btn, .btn-custom, .btn-dark {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Form & CTA button icon style (optional) */
+    .btn i {
+      margin-right: 0.5em;
+    }
+
+    /* Adjust for mobile */
+    @media (max-width: 768px) {
+      .hero img {
+        margin-top: 30px;
+      }
+      .hero .d-flex.gap-3 {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .navbar-nav .nav-link {
+        margin: 0.5rem 0;
+      }
+      #home img {
+        margin-top: 20px;
+        max-width: 70%;
+      }
+    }
+
+    /* Skill Icon Animation */
+.skills-icon, 
+.devicon-html5-plain-wordmark,
+.devicon-css3-plain-wordmark,
+.devicon-bootstrap-plain-wordmark,
+.devicon-java-plain-wordmark,
+.devicon-python-plain-wordmark,
+.devicon-postgresql-plain-wordmark {
+  transition: transform 0.22s cubic-bezier(.4,1.5,.8,1), color 0.18s cubic-bezier(.57,.21,1,.48), filter 0.22s;
+  cursor: pointer;
+}
+
+.skills-icon:hover, 
+.devicon-html5-plain-wordmark:hover,
+.devicon-css3-plain-wordmark:hover,
+.devicon-bootstrap-plain-wordmark:hover,
+.devicon-java-plain-wordmark:hover,
+.devicon-python-plain-wordmark:hover,
+.devicon-postgresql-plain-wordmark:hover {
+  transform: scale(1.18) rotate(-6deg) translateY(-6px);
+  color: #4ff486 !important;
+  filter: drop-shadow(0 5px 20px #ffa561);
+  animation: bounce 0.85s;
+}
+
+/* Bounce Keyframes */
+@keyframes bounce {
+  0%   { transform: scale(1)   translateY(0); }
+  30%  { transform: scale(1.12) translateY(-12px); }
+  60%  { transform: scale(0.97) translateY(3px); }
+  100% { transform: scale(1.18) rotate(-6deg) translateY(-6px);}
+}
+
+
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow ">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="#home"><i class="bi bi-person-circle me-2"></i>MyPortfolio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav text-center">
+        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="#resume">Resume</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Home -->
+<section id="home" class="hero d-flex align-items-center text-white bg-dark" style="min-height: 100vh;">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left Side: Text -->
+      <div class="col-md-6 ">
+        <h1 class="fw-bold display-5">Hello, I'm <span class="text-warning">Om Rameshwar Mohod</span></h1>
+        <h4 class="mt-3">Full Stack Developer | Java Enthusiast | Web Developer</h4>
+        <p class="lead mt-3">Transforming ideas into code with creativity & logic.</p>
+
+        <!-- Skills Icons -->
+        <div class="mt-4 d-flex justify-content-center justify-content-md-start gap-3 fs-2">
+          <i class="devicon-java-plain colored" title="Java"></i>
+          <i class="devicon-html5-plain colored" title="HTML5"></i>
+          <i class="devicon-css3-plain colored" title="CSS3"></i>
+          <i class="devicon-bootstrap-plain colored" title="Bootstrap"></i>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="mt-4">
+          <a href="#projects" class="btn btn-custom me-2"><i class="bi bi-folder2-open"></i>Explore My Projects</a>
+          <a href="#contact" class="btn btn-custom"><i class="bi bi-handshake"></i>Let's Work Together</a>
+        </div>
+
+        <!-- Social Icons -->
+        <div class="mt-4 d-flex justify-content-center justify-content-md-start gap-4 fs-4">
+          <a href="https://github.com/ommohod" target="_blank" class="text-light"><i class="bi bi-github"></i></a>
+          <a href="https://linkedin.com/in/om-mohod-934524290" target="_blank" class="text-primary"><i class="bi bi-linkedin"></i></a>
+          <a href="https://wa.me/7666808216" target="_blank" class="text-success"><i class="bi bi-whatsapp"></i></a>
+        </div>
+      </div>
+      <!-- Right Side: Image -->
+      <div class="col-md-6 text-center">
+        <img src="WhatsApp Image 2024-07-14 at 09.59.14_67023613.jpg" alt="Profile" class="img-fluid rounded-circle shadow mt-4 mt-md-0" style="max-width: 300px;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills" class="py-5 text-center bg-light text-white">
+  <div class="container">
+    <h2 class="mb-5">Skills</h2>
+    <div class="row justify-content-center g-4">
+      <div class="col-6 col-md-2"><i class="devicon-html5-plain-wordmark colored" style="font-size: 4rem;"></i><h6>HTML5</h6></div>
+      <div class="col-6 col-md-2"><i class="devicon-css3-plain-wordmark colored" style="font-size: 4rem;"></i><h6>CSS3</h6></div>
+      <div class="col-6 col-md-2"><i class="devicon-bootstrap-plain-wordmark colored" style="font-size: 4rem;"></i><h6>Bootstrap</h6></div>
+      <div class="col-6 col-md-2"><i class="devicon-java-plain-wordmark colored" style="font-size: 4rem;"></i><h6>Java</h6></div>
+      <div class="col-6 col-md-2"><i class="devicon-python-plain-wordmark colored" style="font-size: 4rem;"></i><h6>Python</h6></div>
+      <div class="col-6 col-md-2"><i class="devicon-postgresql-plain-wordmark colored" style="font-size: 4rem;"></i><h6>PostgreSQL</h6></div>
+    </div>
+  </div>
+
+  
+</section>
+
+<!-- About -->
+<section id="about" class="about py-3 bg-dark text-light">
+  <div class="container">
+    <div class="row align-items-center g-3">
+      <!-- Profile Image -->
+      <div class="col-md-4 text-center">
+        <div class="card bg-black border-0 shadow-sm p-1 rounded-circle d-inline-block">
+          <img src="WhatsApp Image 2024-07-14 at 09.59.14_67023613.jpg"
+               class="img-fluid rounded-circle"
+               alt="Om Mohod"
+               style="max-width: 180px; border: none; outline: none; box-shadow: none;">
+        </div>
+        <h6 class="mt-2 text-warning">Om Rameshwar Mohod</h6>
+        <p class="text-light fst-italic small">Full Stack Developer | Web Developer</p>
+      </div>
+      <!-- About Text -->
+      <div class="col-md-8">
+        <div class="card bg-secondary text-white border-0 p-4 mt-3 mb-md-3">
+          <h4 class="mb-5 text-warning">
+            <i class="fas fa-user-circle me-2"></i>About Me
+          </h4>
+          <p class="mb-2" style="font-size: 1rem;">
+            👋 Hello! I'm <strong>Om Rameshwar Mohod</strong>, a Computer Science graduate and passionate developer.
+          </p>
+          <p class="mb-2" style="font-size: 1rem;">
+            🎓 Graduated from <strong>Nowrosjee Wadia College</strong> in BSc Computer Science, and currently pursuing <strong>Full Stack Java Development</strong> at <strong>IT Vedant</strong>.
+          </p>
+          <p class="mb-2" style="font-size: 1rem;">
+            🛠️ Built a full-stack project: <strong>Construction Material & Supply System</strong> using <span class="text-info">HTML, CSS, JavaScript, PHP, and PostgreSQL</span>.
+          </p>
+          <p class="mb-2" style="font-size: 1rem;">
+            🤖 Interested in <strong>AI</strong>, scalable systems, and full-stack solutions.
+          </p>
+          <div class="mt-2">
+            <h6 class="text-warning mb-1">Skills:</h6>
+            <span class="badge bg-warning text-dark me-1 mb-1">HTML</span>
+            <span class="badge bg-warning text-dark me-1 mb-1">CSS</span>
+            <span class="badge bg-warning text-dark me-1 mb-1">PHP</span>
+            <span class="badge bg-warning text-dark me-1 mb-1">PostgreSQL</span>
+          </div>
+          <p class="mt-2" style="font-size: 1rem;">
+            🌟 Eager to contribute at a reputed firm like <strong class="text-warning">TCS</strong> and grow as a developer.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" class="project  bg-dark text-light ">
+  <div class="container text-center">
+    <h2 class="mb-4">Projects</h2>
+    <div id="projectCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+      <!-- Slide Indicators -->
+      <div class="carousel-indicators mb-3">
+        <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+        <button type="button" data-bs-target="#projectCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+      </div>
+
+      <!-- Carousel Inner -->
+      <div class="carousel-inner">
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+          <div class="d-flex justify-content-center">
+            <div class="card" >
+              <img src="frontpg.png" class="card-img-top" alt="Project 1">
+              <div class="card-body">
+                <h5 class="card-title">E-commerce Platform</h5>
+                <p class="card-text">
+                  Designed and developed a scalable e-commerce platform using Java and Spring Boot. Addressed the challenge of streamlining online shopping with a modern, responsive front end (Bootstrap). Led the integration of secure payment systems and implemented product filtering, resulting in a seamless user experience and a 50% improvement in average checkout times.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="carousel-item">
+          <div class="d-flex justify-content-center">
+            <div class="card">
+              <img src="signup.png" class="card-img-top" alt="Project 2">
+              <div class="card-body">
+                <h5 class="card-title">Sign Up Page</h5>
+                <p class="card-text">
+                  Developed a user-friendly sign-up page for BuildSmart, enabling quick registration through Google and Facebook integrations. Optimized UX to reduce onboarding friction, increasing successful registrations by 30% during initial launch.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="carousel-item">
+          <div class="d-flex justify-content-center">
+            <div class="card">
+              <img src="login.png" class="card-img-top" alt="Project 3">
+              <div class="card-body">
+                <h5 class="card-title">Login Page</h5>
+                <p class="card-text">
+                  Engineered a secure login system featuring role-based access controls and social login options. My efforts improved account safety and simplified the user journey for both users and admins.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 4 -->
+        <div class="carousel-item">
+          <div class="d-flex justify-content-center">
+            <div class="card">
+              <img src="main.png" class="card-img-top" alt="Project 4">
+              <div class="card-body">
+                <h5 class="card-title">Home</h5>
+                <p class="card-text">
+                  Created a dynamic, mobile-first homepage for an eCommerce site, equipped with advanced filters and a real-time cart. Ensured intuitive navigation, boosting user engagement and increasing average session duration.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 5 -->
+        <div class="carousel-item">
+          <div class="d-flex justify-content-center">
+            <div class="card">
+              <img src="payment.png" class="card-img-top" alt="Project 5">
+              <div class="card-body">
+                <h5 class="card-title">Razorpay Payment</h5>
+                <p class="card-text">
+                  Integrated Razorpay payment gateway supporting multiple payment methods, prioritizing user security and reducing failed transaction rates by 18%.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Slide 6 -->
+        <div class="carousel-item">
+          <div class="d-flex justify-content-center">
+            <div class="card">
+              <img src="checkout.png" class="card-img-top" alt="Project 6">
+              <div class="card-body">
+                <h5 class="card-title">Custom Payment UI</h5>
+                <p class="card-text">
+                  Designed and implemented a clean, intuitive custom payment interface with a built-in session timer. Enhanced clarity of payment options, leading to higher order completion rates.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Carousel Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#projectCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#projectCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="py-5 bg-light text-light">
+  <div class="container">
+    <h2 class="text-center mb-4">Contact Me</h2>
+    <form class="mx-auto p-4 shadow rounded bg-white text-dark" style="max-width: 600px;">
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Name</label>
+        <input type="text" class="form-control shadow-sm" placeholder="Your Name" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Email</label>
+        <input type="email" class="form-control shadow-sm" placeholder="Your Email" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Message</label>
+        <textarea class="form-control shadow-sm" placeholder="Your Message" rows="4" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-custom w-100 fw-semibold"><i class="bi bi-send"></i>Send Your Message</button>
+    </form>
+    <div class="mt-4 d-flex justify-content-center gap-4">
+      <a href="https://github.com/ommohod" class="text-light fs-4"><i class="bi bi-github"></i></a>
+      <a href="https://linkedin.com/in/om-mohod-934524290/" class="text-primary fs-4"><i class="bi bi-linkedin"></i></a>
+      <a href="https://wa.me/7666808216" class="text-success fs-4"><i class="bi bi-whatsapp"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- Resume -->
+<section id="resume" class="resume text-light">
+  <div class="container text-center">
+    <h2 class="mb-4">Download Resume</h2>
+    <a href="Om's resume.pdf" download class="btn btn-custom"><i class="bi bi-download me-2"></i>Download PDF</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="text-center">
+  <div class="container">
+    <p class="mb-0">© 2025 MyPortfolio. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

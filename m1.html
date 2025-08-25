@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BuildSmart Home</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f8f8;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      text-align: center;
+      z-index: 1050;
+    }
+    .popup button {
+      background: #ff7f50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+    .product-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    .carousel img {
+      height: 400px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Welcome Popup -->
+  <div id="welcomePopup" class="popup">
+    <h2>Welcome to BuildSmart!</h2>
+    <p>You have successfully logged in.</p>
+    <button onclick="closePopup()">OK</button>
+  </div>
+
+  <!-- Header -->
+  <header class="bg-dark text-white text-center py-3">
+    <h1 class="m-0">BuildSmart</h1>
+  </header>
+
+  <!-- Top Bar -->
+  <div class="bg-secondary text-white py-2 px-3 d-flex flex-wrap justify-content-between align-items-center">
+    <span>Shipping to: Pune, 411030</span>
+    <input type="text" class="form-control w-50 my-2 my-md-0" id="searchInput" placeholder="What are you looking for?">
+    <div class="d-flex align-items-center gap-2">
+      <button class="btn btn-warning">Services</button>
+      <button class="btn btn-outline-light" onclick="logout()">Log Out</button>
+      <div class="position-relative cart-icon" onclick="viewCart()">
+        <i class="fas fa-shopping-cart fs-4"></i>
+        <span class="badge bg-danger rounded-circle position-absolute top-0 start-100 translate-middle" id="cartCount">0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCategory" aria-controls="navbarCategory" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span> Categories
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCategory">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><button class="btn btn-dark" onclick="filterCategory('all')">All</button></li>
+          <li class="nav-item"><button class="btn btn-dark" onclick="filterCategory('cement')">Cement</button></li>
+          <li class="nav-item"><button class="btn btn-dark" onclick="filterCategory('bricks')">Bricks</button></li>
+          <li class="nav-item"><button class="btn btn-dark" onclick="filterCategory('steel')">Steel</button></li>
+          <li class="nav-item"><button class="btn btn-dark" onclick="filterCategory('aggregates')">Aggregates</button></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Carousel -->
+  
+
+  <!-- Filters -->
+  <div class="container mb-4">
+    <div class="row g-3 align-items-center">
+      <div class="col-md-3">
+        <select class="form-select" id="categoryFilter">
+          <option value="all">All Categories</option>
+          <option value="cement">Cement</option>
+          <option value="bricks">Bricks</option>
+          <option value="steel">Steel</option>
+          <option value="aggregates">Aggregates</option>
+        </select>
+      </div>
+      <div class="col-md-2"><input type="number" id="minPrice" class="form-control" placeholder="Min Price"></div>
+      <div class="col-md-2"><input type="number" id="maxPrice" class="form-control" placeholder="Max Price"></div>
+      <div class="col-md-2">
+        <button class="btn btn-primary w-100" onclick="applyFilters()">Apply Filters</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product List -->
+  <div class="container">
+    <div class="row" id="productList">
+      <!-- Products rendered by JS -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3 mt-4">
+    <p class="mb-0">&copy; 2023 BuildSmart. All rights reserved. | <a href="#" class="text-warning text-decoration-none">Privacy Policy</a> | <a href="#" class="text-warning text-decoration-none">Terms of Service</a></p>
+  </footer>
+
+  <!-- Bootstrap JS + Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const products = [
+      { id: 1, name: "UltraTech Cement", category: "cement", price: 1000, image: "ultratech_cement.png", description: "Trusted Quality" },
+      { id: 2, name: "Mud Bricks", category: "bricks", price: 470, image: "bricks.png", description: "Size: 9in x 4in x 3in" },
+      { id: 3, name: "Steel Rods", category: "steel", price: 1200, image: "steel_rods.png", description: "High Strength" },
+      { id: 4, name: "Aggregates Material", category: "aggregates", price: 8000, image: "ag.png", description: "High Strength" },
+      { id: 5, name: "River Sand", category: "aggregates", price: 800, image: "rs.webp", description: "Fine Quality Sand" },
+      { id: 6, name: "Concrete Blocks", category: "bricks", price: 15, image: "cb.png", description: "Strong & Durable" }
+    ];
+
+    function displayProducts(filtered = products) {
+      const productList = document.getElementById("productList");
+      productList.innerHTML = filtered.map(product => `
+        <div class="col-md-4 col-lg-3 mb-4">
+          <div class="card product-card h-100">
+            <img src="${product.image}" class="card-img-top" alt="${product.name}">
+            <div class="card-body text-center">
+              <h5 class="card-title">${product.name}</h5>
+              <p class="card-text">${product.description}</p>
+              <p class="fw-bold">₹${product.price}</p>
+              <button class="btn btn-success mb-2 w-100" onclick="addToCart(${product.id})">Add to Cart</button>
+              <button class="btn btn-primary w-100" onclick="buyNow(${product.id})">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function addToCart(productId) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let product = products.find(p => p.id === productId);
+      let existing = cart.find(item => item.id === productId);
+      if (existing) existing.quantity += 1;
+      else cart.push({ ...product, quantity: 1 });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCount();
+      alert(`${product.name} added to cart!`);
+    }
+
+    function updateCartCount() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      document.getElementById("cartCount").textContent = cart.length;
+    }
+
+    function viewCart() {
+      window.location.href = "cart.html";
+    }
+
+    function applyFilters() {
+      const category = document.getElementById("categoryFilter").value;
+      const min = parseFloat(document.getElementById("minPrice").value) || 0;
+      const max = parseFloat(document.getElementById("maxPrice").value) || Infinity;
+
+      const filtered = products.filter(p => 
+        (category === "all" || p.category === category) &&
+        p.price >= min && p.price <= max
+      );
+
+      displayProducts(filtered);
+    }
+
+    function logout() {
+      alert("You have been logged out!");
+      // Redirect or clear session here
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      displayProducts();
+      updateCartCount();
+      setTimeout(() => {
+        document.getElementById("welcomePopup").style.display = "block";
+      }, 500);
+    });
+
+    function closePopup() {
+      document.getElementById("welcomePopup").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
